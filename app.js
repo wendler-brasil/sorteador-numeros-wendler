@@ -15,26 +15,58 @@ AO CLICAR EM REINICIAR
 */
 
 function sortear() {
-    //leitura, validação, sorteio e exibição 
-}
 
-function reiniciar() {
-    //restauração do estado inicial
-}
+    const campoQuantidade = document.getElementById('quantidade');
+    const campoInicio = document.getElementById('de');
+    const campoFim = document.getElementById('ate');
 
-const campoQuantidade = document.getElementById('quantidade');
-const campoInicio = document.getElementById('de');
-const campoFim = document.getElementById('ate');
+    const quantidadeTexto = campoQuantidade.value;
+    const inicioTexto = campoInicio.value;
+    const fimTexto = campoFim.value;
 
-const quantidadeTexto = campoQuantidade.value;
-const inicioTexto = campoInicio.value;
-const fimTexto = campoFim.value;
+    if (quantidadeTexto === '' || inicioTexto === '' || fimTexto === '') {
+        alert('Preencha todos os campos.');
+        return;
+    }
 
-if (quantidadeTexto === '' || inicioTexto === '' || fimTexto === '') {
-    alert('Preencha todos os campos.');
-    return;
-}
+    const quantidade = Number(quantidadeTexto);
+    const inicio = Number(inicioTexto);
+    const fim = Number(fimTexto);
 
-const quantidade = Number(quantidadeTexto);
-const inicio = Number(inicioTexto);
-const fim = Number(fimTexto);
+    if (!Number.isInteger(quantidade) || quantidade <= 0) {
+        alert('A quantidade deve ser um número inteiro positivo.');
+        return;
+    }
+
+    if (!Number.isInteger(inicio) || !Number.isInteger(fim) ||
+        inicio < 1 || fim < 1) {
+        alert('O início e o fim devem ser números inteiros positivos.');
+        return;
+    }
+
+    if (inicio > fim) {
+        alert('O início não pode ser maior que o fim.');
+        return;
+    }
+
+    //Sortear e exibir os números 
+    const sorteados = [];
+
+    for (let i = 0; i < quantidade; i++) {
+
+        const numero = Math.floor(Math.random() * (fim - inicio + 1)) + inicio;
+        sorteados.push(numero);
+
+    }
+
+    const resultado = document.getElementById('resultado');
+    resultado.innerHTML = 
+'<label class = "texto_paragrafo">' +
+ `Números sorteados: ${sorteados.join(', ')}`} + '</label>';
+
+
+
+
+
+
+ 
